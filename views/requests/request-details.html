@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winter Blanket Drive — Request Details — NepalPulse</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #ffffff;
+      border-bottom: 1px solid #f1f5f9;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background-color: #dc2626;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-name span {
+      color: #dc2626;
+    }
+
+    .brand-tagline {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 1px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #374151;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #dc2626;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-login {
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111827;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #f9fafb;
+      border-color: #d1d5db;
+    }
+
+    .btn-register {
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #dc2626;
+      border: 1px solid #dc2626;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-register:hover {
+      background-color: #b91c1c;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 24px 64px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 18px;
+      transition: color 0.15s ease;
+    }
+
+    .back-link:hover {
+      color: #111827;
+    }
+
+    /* Request Header */
+    .request-header {
+      max-width: 720px;
+    }
+
+    .title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .title-row h1 {
+      font-size: 30px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.02em;
+    }
+
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #15803d;
+      background-color: #e6f6ec;
+      border-radius: 9999px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 8px;
+    }
+
+    .pin-icon {
+      width: 14px;
+      height: 14px;
+      color: #dc2626;
+      flex-shrink: 0;
+    }
+
+    .request-description {
+      margin-top: 12px;
+      font-size: 13.5px;
+      color: #4b5563;
+      line-height: 1.6;
+    }
+
+    /* Two-column layout */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 32px;
+      margin-top: 32px;
+      align-items: start;
+    }
+
+    .section-heading {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 14px;
+    }
+
+    /* Requested Items */
+    .items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .item-card {
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 8px rgba(17, 24, 39, 0.03);
+    }
+
+    .item-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .item-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .item-meta {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+
+    .available-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #dc2626;
+      background-color: #fee2e2;
+      border-radius: 9999px;
+    }
+
+    /* Stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .stepper-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: none;
+      background-color: #f3f4f6;
+      color: #374151;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stepper-btn:hover {
+      background-color: #e5e7eb;
+    }
+
+    .stepper-value {
+      width: 34px;
+      height: 28px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background-color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background-color: #e5e7eb;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: #dc2626;
+      border-radius: 9999px;
+    }
+
+    .progress-label {
+      font-size: 11.5px;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+
+    /* Supporting Evidence */
+    .evidence-section {
+      margin-top: 32px;
+    }
+
+    .evidence-subtitle {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: -8px;
+      margin-bottom: 14px;
+    }
+
+    .evidence-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .evidence-item {
+      width: 110px;
+    }
+
+    .evidence-box {
+      width: 110px;
+      height: 76px;
+      background-color: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .evidence-filename {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 6px;
+      word-break: break-all;
+    }
+
+    /* Recent Donations */
+    .donations-section {
+      margin-top: 32px;
+    }
+
+    .donations-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .donation-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+    }
+
+    .donor-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .donor-amount {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    .status-pill {
+      padding: 4px 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+      border-radius: 9999px;
+    }
+
+    .status-delivered {
+      color: #15803d;
+      background-color: #e6f6ec;
+    }
+
+    .status-transit {
+      color: #b45309;
+      background-color: #fef3c7;
+    }
+
+    .status-reserved {
+      color: #4b5563;
+      background-color: #f3f4f6;
+    }
+
+    /* Sidebar Donate Card */
+    .donate-card {
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 28px rgba(17, 24, 39, 0.06);
+    }
+
+    .donate-card h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .donate-subtitle {
+      font-size: 12.5px;
+      color: #6b7280;
+      margin-top: 4px;
+      margin-bottom: 18px;
+    }
+
+    .donate-items {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .donate-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .donate-item-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .donate-item-avail {
+      font-size: 11.5px;
+      color: #6b7280;
+    }
+
+    .deadline-box {
+      margin-top: 16px;
+      font-size: 12px;
+    }
+
+    .deadline-title {
+      font-weight: 600;
+      color: #b45309;
+    }
+
+    .deadline-note {
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    .btn-reserve {
+      margin-top: 18px;
+      width: 100%;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #dc2626;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-reserve:hover {
+      background-color: #b91c1c;
+    }
+
+    .reserve-footnote {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">Nepal<span>Pulse</span></div>
+          <div class="brand-tagline">Connecting Needs with Kindness</div>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="browse-requests.html" class="active">Browse Requests</a></li>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="#" class="btn-login">Login</a>
+          <a href="#" class="btn-register">Register</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <a href="browse-requests.html" class="back-link">&larr; Back to Browse Requests</a>
+
+    <!-- Header -->
+    <section class="request-header">
+      <div class="title-row">
+        <h1>Winter Blanket Drive</h1>
+        <span class="verified-badge">&#10003; Admin Verified</span>
+      </div>
+      <div class="meta-row">
+        <svg class="pin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+        <span>Kathmandu &middot; Requested by Sita Sharma &middot; Posted 2 days ago</span>
+      </div>
+      <p class="request-description">
+        Warm woolens for 40 families affected by the cold wave in the valley. Each blanket should be clean and in usable condition. Drop-off can be arranged within the valley.
+      </p>
+    </section>
+
+    <!-- Main Two-Column Grid -->
+    <div class="content-grid">
+
+      <!-- Left Column -->
+      <div>
+        <!-- Requested Items -->
+        <section aria-label="Requested Items">
+          <h2 class="section-heading">Requested Items</h2>
+          <div class="items-list">
+
+            <!-- Item 1 -->
+            <div class="item-card">
+              <div class="item-card-top">
+                <div>
+                  <div class="item-title">Winter blankets (woolen)</div>
+                  <div class="item-meta">Requested 40 &middot; Reserved 8 &middot; Fulfilled 18</div>
+                  <span class="available-badge">14 available</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" aria-label="Decrease Winter blankets quantity">&minus;</button>
+                  <div class="stepper-value">2</div>
+                  <button type="button" class="stepper-btn" aria-label="Increase Winter blankets quantity">+</button>
+                </div>
+              </div>
+              <div class="item-progress-row">
+                <div class="progress-track">
+                  <div class="progress-fill" style="width: 45%;"></div>
+                </div>
+                <span class="progress-label">18/40 fulfilled</span>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="item-card">
+              <div class="item-card-top">
+                <div>
+                  <div class="item-title">Baby blankets</div>
+                  <div class="item-meta">Requested 15 &middot; Reserved 3 &middot; Fulfilled 9</div>
+                  <span class="available-badge">3 available</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" aria-label="Decrease Baby blankets quantity">&minus;</button>
+                  <div class="stepper-value">2</div>
+                  <button type="button" class="stepper-btn" aria-label="Increase Baby blankets quantity">+</button>
+                </div>
+              </div>
+              <div class="item-progress-row">
+                <div class="progress-track">
+                  <div class="progress-fill" style="width: 60%;"></div>
+                </div>
+                <span class="progress-label">9/15 fulfilled</span>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="item-card">
+              <div class="item-card-top">
+                <div>
+                  <div class="item-title">Bed sheets (single)</div>
+                  <div class="item-meta">Requested 20 &middot; Reserved 0 &middot; Fulfilled 5</div>
+                  <span class="available-badge">15 available</span>
+                </div>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" aria-label="Decrease Bed sheets quantity">&minus;</button>
+                  <div class="stepper-value">2</div>
+                  <button type="button" class="stepper-btn" aria-label="Increase Bed sheets quantity">+</button>
+                </div>
+              </div>
+              <div class="item-progress-row">
+                <div class="progress-track">
+                  <div class="progress-fill" style="width: 25%;"></div>
+                </div>
+                <span class="progress-label">5/20 fulfilled</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Supporting Evidence -->
+        <section class="evidence-section" aria-label="Supporting Evidence">
+          <h2 class="section-heading">Supporting Evidence</h2>
+          <p class="evidence-subtitle">Verified by admin &middot; visible to reviewers only</p>
+          <div class="evidence-grid">
+            <div class="evidence-item">
+              <div class="evidence-box" aria-hidden="true">&#128196;</div>
+              <div class="evidence-filename">ward-letter.pdf</div>
+            </div>
+            <div class="evidence-item">
+              <div class="evidence-box" aria-hidden="true">&#128196;</div>
+              <div class="evidence-filename">family-list.pdf</div>
+            </div>
+            <div class="evidence-item">
+              <div class="evidence-box" aria-hidden="true">&#128196;</div>
+              <div class="evidence-filename">photo-1.jpg</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recent Donations -->
+        <section class="donations-section" aria-label="Recent Donations">
+          <h2 class="section-heading">Recent Donations</h2>
+          <div class="donations-list">
+            <div class="donation-row">
+              <div>
+                <div class="donor-name">Ramesh K.</div>
+                <div class="donor-amount">5 blankets</div>
+              </div>
+              <span class="status-pill status-delivered">Delivered</span>
+            </div>
+            <div class="donation-row">
+              <div>
+                <div class="donor-name">Anita S.</div>
+                <div class="donor-amount">10 blankets</div>
+              </div>
+              <span class="status-pill status-transit">In transit</span>
+            </div>
+            <div class="donation-row">
+              <div>
+                <div class="donor-name">Bikash T.</div>
+                <div class="donor-amount">3 blankets</div>
+              </div>
+              <span class="status-pill status-reserved">Reserved</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Sidebar -->
+      <aside class="donate-card" aria-label="Donate to this request">
+        <h2>Donate to this request</h2>
+        <p class="donate-subtitle">Choose items and quantities. You can give part of what is needed.</p>
+
+        <div class="donate-items">
+          <div class="donate-item-row">
+            <div>
+              <div class="donate-item-name">Winter blankets</div>
+              <div class="donate-item-avail">14 available</div>
+            </div>
+            <div class="stepper">
+              <button type="button" class="stepper-btn" aria-label="Decrease Winter blankets">&minus;</button>
+              <div class="stepper-value">2</div>
+              <button type="button" class="stepper-btn" aria-label="Increase Winter blankets">+</button>
+            </div>
+          </div>
+
+          <div class="donate-item-row">
+            <div>
+              <div class="donate-item-name">Baby blankets</div>
+              <div class="donate-item-avail">3 available</div>
+            </div>
+            <div class="stepper">
+              <button type="button" class="stepper-btn" aria-label="Decrease Baby blankets">&minus;</button>
+              <div class="stepper-value">1</div>
+              <button type="button" class="stepper-btn" aria-label="Increase Baby blankets">+</button>
+            </div>
+          </div>
+
+          <div class="donate-item-row">
+            <div>
+              <div class="donate-item-name">Bed sheets</div>
+              <div class="donate-item-avail">15 available</div>
+            </div>
+            <div class="stepper">
+              <button type="button" class="stepper-btn" aria-label="Decrease Bed sheets">&minus;</button>
+              <div class="stepper-value">0</div>
+              <button type="button" class="stepper-btn" aria-label="Increase Bed sheets">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="deadline-box">
+          <div class="deadline-title">Delivery deadline: 3 days after reservation</div>
+          <div class="deadline-note">Upload delivery proof after drop-off.</div>
+        </div>
+
+        <button type="button" class="btn-reserve">Reserve Donation</button>
+        <p class="reserve-footnote">Reserved quantities are held for you and shown to other donors.</p>
+      </aside>
+
+    </div>
+  </main>
+
+</body>
+</html>
