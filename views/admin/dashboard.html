@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — NepalPulse</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 230px;
+      background-color: #0b1120;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      padding: 22px 14px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 8px 24px;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      background-color: #dc2626;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: #ffffff;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .brand-name span {
+      color: #dc2626;
+    }
+
+    .brand-console {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #94a3b8;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .sidebar-link:hover {
+      background-color: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+
+    .sidebar-link.active {
+      background-color: #dc2626;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .link-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-badge {
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 9999px;
+      background-color: #dc2626;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-footer {
+      border-top: 1px solid #1e293b;
+      padding: 14px 8px 0;
+      font-size: 12px;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 30px 36px 56px;
+      max-width: 1180px;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .top-bar h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.02em;
+    }
+
+    .top-date {
+      font-size: 12.5px;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+
+    .overdue-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #dc2626;
+      background-color: #fee2e2;
+      border-radius: 9999px;
+    }
+
+    .overdue-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 9999px;
+      background-color: #dc2626;
+    }
+
+    /* Stat Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background-color: #ffffff;
+      border: 1px solid #f1f5f9;
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .stat-num {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .num-amber { color: #b45309; }
+    .num-blue { color: #2563eb; }
+    .num-red { color: #dc2626; }
+
+    /* Section Headings */
+    .section-block {
+      margin-bottom: 32px;
+    }
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .internal-pill {
+      padding: 3px 10px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #4b5563;
+      background-color: #f3f4f6;
+      border-radius: 9999px;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 3px;
+      margin-bottom: 14px;
+    }
+
+    /* Tables */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      background-color: #f8fafc;
+    }
+
+    th {
+      text-align: left;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #6b7280;
+      padding: 11px 16px;
+    }
+
+    th:first-child { border-radius: 10px 0 0 10px; }
+    th:last-child { border-radius: 0 10px 10px 0; }
+
+    td {
+      padding: 15px 16px;
+      font-size: 12.5px;
+      color: #374151;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: middle;
+    }
+
+    .cell-strong {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .evidence-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #2563eb;
+      background-color: #eff6ff;
+      border-radius: 9999px;
+    }
+
+    .action-btns {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-approve {
+      padding: 6px 14px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #16a34a;
+      border: 1px solid #16a34a;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .btn-approve:hover {
+      background-color: #15803d;
+    }
+
+    .btn-reject {
+      padding: 6px 14px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #dc2626;
+      background-color: #ffffff;
+      border: 1px solid #dc2626;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .btn-reject:hover {
+      background-color: #fef2f2;
+    }
+
+    .failed-red {
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    .reliability-cell {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .rel-track {
+      width: 140px;
+      height: 6px;
+      background-color: #e5e7eb;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .rel-fill-green {
+      height: 100%;
+      background-color: #16a34a;
+      border-radius: 9999px;
+    }
+
+    .rel-fill-red {
+      height: 100%;
+      background-color: #dc2626;
+      border-radius: 9999px;
+    }
+
+    .rel-pct {
+      font-size: 12px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    /* Recent Disputes */
+    .dispute-card {
+      margin-top: 12px;
+      background-color: #ffffff;
+      border: 1px solid #f1f5f9;
+      border-radius: 14px;
+      padding: 20px 24px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .dispute-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #b45309;
+      background-color: #fef3c7;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+
+    .dispute-meta {
+      font-size: 12.5px;
+      color: #4b5563;
+    }
+
+    .btn-review {
+      padding: 9px 22px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #0f172a;
+      border: none;
+      border-radius: 9px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-review:hover {
+      background-color: #1e293b;
+    }
+
+    @media (max-width: 980px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .dispute-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dark Left Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Nepal<span>Pulse</span></div>
+        <div class="brand-console">Admin Console</div>
+      </div>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li>
+        <a href="#" class="sidebar-link active">
+          <span class="link-left"><span>&#128202;</span> Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link">
+          <span class="link-left"><span>&#8987;</span> Pending Requests</span>
+          <span class="nav-badge">3</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link">
+          <span class="link-left"><span>&#128203;</span> All Requests</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link">
+          <span class="link-left"><span>&#127873;</span> Donations</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link">
+          <span class="link-left"><span>&#9888;&#65039;</span> Disputes</span>
+          <span class="nav-badge">1</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link">
+          <span class="link-left"><span>&#128101;</span> Users</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link">
+          <span class="link-left"><span>&#128200;</span> Reliability</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="sidebar-link">
+          <span class="link-left"><span>&#9881;&#65039;</span> Settings</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <span>&#128100;</span>
+      <span>Admin &middot; Softwarica</span>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="top-bar">
+      <div>
+        <h1>Admin Dashboard</h1>
+        <p class="top-date">Saturday, 4 October 2026</p>
+      </div>
+      <span class="overdue-pill"><span class="overdue-dot"></span> 2 overdue</span>
+    </header>
+
+    <!-- Stat Cards -->
+    <section class="stats-grid" aria-label="Dashboard statistics">
+      <div class="stat-card">
+        <div class="stat-label">Pending Verification</div>
+        <div class="stat-num num-amber">3</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Donations</div>
+        <div class="stat-num num-blue">18</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Overdue Commitments</div>
+        <div class="stat-num num-red">2</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Open Disputes</div>
+        <div class="stat-num num-amber">1</div>
+      </div>
+    </section>
+
+    <!-- Pending Requests -->
+    <section class="section-block" aria-label="Pending Requests">
+      <h2 class="section-title">Pending Requests</h2>
+      <p class="section-sub">Review evidence, then approve or reject.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Request</th>
+              <th>Requester</th>
+              <th>Items</th>
+              <th>Evidence</th>
+              <th>Submitted</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cell-strong">Winter Blanket Drive</td>
+              <td>Sita Sharma</td>
+              <td>3 items</td>
+              <td><span class="evidence-pill">3 files</span></td>
+              <td>2 days ago</td>
+              <td>
+                <div class="action-btns">
+                  <button type="button" class="btn-approve">Approve</button>
+                  <button type="button" class="btn-reject">Reject</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-strong">School Stationery Sets</td>
+              <td>Gita K.C.</td>
+              <td>2 items</td>
+              <td><span class="evidence-pill">2 files</span></td>
+              <td>1 day ago</td>
+              <td>
+                <div class="action-btns">
+                  <button type="button" class="btn-approve">Approve</button>
+                  <button type="button" class="btn-reject">Reject</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-strong">Rice &amp; Lentils (60 kg)</td>
+              <td>Hari Bahadur</td>
+              <td>1 item</td>
+              <td><span class="evidence-pill">1 file</span></td>
+              <td>5 hrs ago</td>
+              <td>
+                <div class="action-btns">
+                  <button type="button" class="btn-approve">Approve</button>
+                  <button type="button" class="btn-reject">Reject</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Donor Reliability -->
+    <section class="section-block" aria-label="Donor Reliability">
+      <div class="section-title-row">
+        <h2 class="section-title">Donor Reliability</h2>
+        <span class="internal-pill">Admin only &middot; never public</span>
+      </div>
+      <p class="section-sub">Internal signal only. Never shown as a public ranking.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Donor</th>
+              <th>Completed</th>
+              <th>Failed / Expired</th>
+              <th>Reliability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cell-strong">Ramesh K.</td>
+              <td>12</td>
+              <td>0</td>
+              <td>
+                <div class="reliability-cell">
+                  <div class="rel-track"><div class="rel-fill-green" style="width: 95%;"></div></div>
+                  <span class="rel-pct">95%</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-strong">Anita S.</td>
+              <td>8</td>
+              <td class="failed-red">1</td>
+              <td>
+                <div class="reliability-cell">
+                  <div class="rel-track"><div class="rel-fill-green" style="width: 85%;"></div></div>
+                  <span class="rel-pct">85%</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="cell-strong">Bikash T.</td>
+              <td>2</td>
+              <td class="failed-red">3</td>
+              <td>
+                <div class="reliability-cell">
+                  <div class="rel-track"><div class="rel-fill-red" style="width: 40%;"></div></div>
+                  <span class="rel-pct">40%</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Recent Disputes -->
+    <section class="section-block" aria-label="Recent Disputes">
+      <h2 class="section-title">Recent Disputes</h2>
+      <div class="dispute-card">
+        <div>
+          <span class="dispute-badge">Partial receipt reported</span>
+          <div class="dispute-meta">Donation #D-1042 &middot; Winter Blanket Drive &middot; reported by Sita Sharma 1 hr ago</div>
+        </div>
+        <button type="button" class="btn-review">Review Case</button>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
