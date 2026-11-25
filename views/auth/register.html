@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — NepalPulse</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 39% 61%;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Left Red Branding Panel */
+    .brand-panel {
+      background-color: #dc2626;
+      color: #ffffff;
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .logo-box {
+      width: 48px;
+      height: 48px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .logo-box svg {
+      width: 24px;
+      height: 24px;
+      fill: #dc2626;
+    }
+
+    .brand-panel h1 {
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .brand-lead {
+      font-size: 14.5px;
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.6;
+      max-width: 340px;
+      margin-bottom: 44px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .check-badge {
+      width: 28px;
+      height: 28px;
+      background-color: #ffffff;
+      color: #dc2626;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .brand-quote {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 8px;
+    }
+
+    /* Right Auth Area */
+    .auth-area {
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 380px;
+      background-color: #ffffff;
+      border: 1px solid #f1f5f9;
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    }
+
+    .auth-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .auth-subtitle {
+      font-size: 12.5px;
+      color: #6b7280;
+      margin-top: 4px;
+      margin-bottom: 24px;
+    }
+
+    .field-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 7px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      padding: 11px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      color: #111827;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input::placeholder {
+      color: #9ca3af;
+    }
+
+    input:focus {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+    }
+
+    .password-input {
+      padding-right: 40px;
+    }
+
+    .eye-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #6b7280;
+      pointer-events: none;
+    }
+
+    .btn-submit {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #0f172a;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #1e293b;
+    }
+
+    .terms-note {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      body {
+        grid-template-columns: 1fr;
+      }
+      .brand-panel {
+        padding: 36px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left Red Panel -->
+  <aside class="brand-panel">
+    <div class="logo-box" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+    </div>
+
+    <h1>Kindness,<br />delivered.</h1>
+    <p class="brand-lead">
+      Join NepalPulse to request essential goods or donate what you can. Every request is verified by an admin.
+    </p>
+
+    <ul class="feature-list">
+      <li><span class="check-badge">&#10003;</span> Admin-verified requests</li>
+      <li><span class="check-badge">&#10003;</span> Give only part of a need</li>
+      <li><span class="check-badge">&#10003;</span> 3-day tracked delivery</li>
+    </ul>
+
+    <p class="brand-quote">&ldquo;Small help, honestly tracked, reaches further.&rdquo;</p>
+  </aside>
+
+  <!-- Right Register Card -->
+  <main class="auth-area">
+    <section class="auth-card" aria-label="Register form">
+      <h2>Create account</h2>
+      <p class="auth-subtitle">Start donating or requesting in minutes</p>
+
+      <form action="#" method="post">
+        <div class="field-group">
+          <label for="register-name">Full name</label>
+          <input type="text" id="register-name" name="full_name" placeholder="Your name" required />
+        </div>
+
+        <div class="field-group">
+          <label for="register-email">Email</label>
+          <input type="email" id="register-email" name="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="field-group">
+          <label for="register-password">Password</label>
+          <div class="input-wrap">
+            <input type="password" id="register-password" name="password" class="password-input" placeholder="Choose a password" required />
+            <span class="eye-icon" aria-hidden="true">&#128065;</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Register</button>
+      </form>
+
+      <p class="terms-note">By registering you agree to donate physical goods only.</p>
+    </section>
+  </main>
+
+</body>
+</html>
