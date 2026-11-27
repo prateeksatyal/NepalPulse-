@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NepalPulse — Connecting Needs with Kindness</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #ffffff;
+      border-bottom: 1px solid #f1f5f9;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background-color: #dc2626;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-name span {
+      color: #dc2626;
+    }
+
+    .brand-tagline {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 1px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #374151;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #dc2626;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-login {
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111827;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #f9fafb;
+      border-color: #d1d5db;
+    }
+
+    .btn-register {
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #dc2626;
+      border: 1px solid #dc2626;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-register:hover {
+      background-color: #b91c1c;
+    }
+
+    /* Hero Section */
+    .hero {
+      flex: 1;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 64px 24px 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #dc2626;
+      background-color: #fef2f2;
+      border-radius: 9999px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+    }
+
+    .hero h1 .highlight {
+      display: block;
+      color: #dc2626;
+    }
+
+    .hero-subtitle {
+      max-width: 520px;
+      font-size: 15px;
+      color: #6b7280;
+      margin-top: 20px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #dc2626;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #b91c1c;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 28px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: #f9fafb;
+      border-color: #d1d5db;
+    }
+
+    /* Stats Card */
+    .stats-card {
+      width: 100%;
+      max-width: 740px;
+      margin-top: 52px;
+      background-color: #ffffff;
+      border: 1px solid #f1f5f9;
+      border-radius: 18px;
+      padding: 32px 24px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+    }
+
+    .stat-item {
+      padding: 0 18px;
+      text-align: center;
+    }
+
+    .stat-item + .stat-item {
+      border-left: 1px solid #f1f5f9;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-red { color: #dc2626; }
+    .stat-dark { color: #0f172a; }
+    .stat-green { color: #16a34a; }
+
+    .stat-label {
+      font-size: 12.5px;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    /* Footer */
+    .footer-bar {
+      background-color: #dc2626;
+      color: #ffffff;
+      text-align: center;
+      padding: 16px 24px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 38px;
+      }
+      .stats-card {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .stat-item + .stat-item {
+        border-left: none;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">Nepal<span>Pulse</span></div>
+          <div class="brand-tagline">Connecting Needs with Kindness</div>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="../requests/browse-requests.html">Browse Requests</a></li>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="../auth/login.html" class="btn-login">Login</a>
+          <a href="../auth/register.html" class="btn-register">Register</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="hero">
+    <div class="hero-pill">
+      <span>&#9829;</span>
+      <span>Non-Monetary Physical Donation Platform</span>
+    </div>
+
+    <h1>
+      Connecting Needs with
+      <span class="highlight">Kindness.</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      NepalPulse is a verified, transparent physical-item donation management system bridging communities in need with donors.
+    </p>
+
+    <div class="hero-actions">
+      <a href="../requests/browse-requests.html" class="btn-primary">
+        Browse Active Requests <span>&rarr;</span>
+      </a>
+      <a href="../requests/create-request.html" class="btn-secondary">Request Help</a>
+    </div>
+
+    <section class="stats-card" aria-label="Platform highlights">
+      <div class="stat-item">
+        <div class="stat-value stat-red">100%</div>
+        <div class="stat-label">Physical Goods Only</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value stat-dark">Admin Verified</div>
+        <div class="stat-label">Evidence Checked</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value stat-green">3-Day Deadline</div>
+        <div class="stat-label">Commitment Tracking</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-bar">
+    &#9829; &nbsp; NepalPulse &middot; Connecting Needs with Kindness &middot; Physical-item donations only
+  </footer>
+
+</body>
+</html>
