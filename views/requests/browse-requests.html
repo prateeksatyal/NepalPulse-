@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Requests — NepalPulse</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #ffffff;
+      border-bottom: 1px solid #f1f5f9;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background-color: #dc2626;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-name span {
+      color: #dc2626;
+    }
+
+    .brand-tagline {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 1px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #374151;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #dc2626;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-login {
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111827;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #f9fafb;
+      border-color: #d1d5db;
+    }
+
+    .btn-register {
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #dc2626;
+      border: 1px solid #dc2626;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-register:hover {
+      background-color: #b91c1c;
+    }
+
+    /* Main Content */
+    .main-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 36px 24px 64px;
+    }
+
+    .page-header h1 {
+      font-size: 30px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header p {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    /* Search */
+    .search-wrapper {
+      margin-top: 24px;
+      max-width: 680px;
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      color: #9ca3af;
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 18px 12px 42px;
+      font-size: 13.5px;
+      color: #111827;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 9999px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .search-input::placeholder {
+      color: #9ca3af;
+    }
+
+    .search-input:focus {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+    }
+
+    /* Filter Pills */
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .pill {
+      padding: 7px 16px;
+      font-size: 12.5px;
+      font-weight: 500;
+      border-radius: 9999px;
+      background-color: #f3f4f6;
+      color: #374151;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .pill:hover {
+      background-color: #e5e7eb;
+    }
+
+    .pill.active {
+      background-color: #dc2626;
+      color: #ffffff;
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 26px;
+    }
+
+    .request-card {
+      background-color: #ffffff;
+      border: 1px solid #f1f5f9;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(17, 24, 39, 0.05);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .request-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(17, 24, 39, 0.08);
+    }
+
+    .card-visual {
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      user-select: none;
+    }
+
+    .bg-pink { background-color: #fdf2f2; }
+    .bg-yellow { background-color: #fef6d8; }
+    .bg-mint { background-color: #eaf7ee; }
+    .bg-blue { background-color: #eef3fc; }
+
+    .card-body {
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .category-badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #dc2626;
+      background-color: #fee2e2;
+      border-radius: 9999px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .card-location {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .pin-icon {
+      width: 13px;
+      height: 13px;
+      color: #dc2626;
+      flex-shrink: 0;
+    }
+
+    .card-quantity {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 10px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background-color: #e5e7eb;
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: #dc2626;
+      border-radius: 9999px;
+    }
+
+    .progress-stats {
+      font-size: 11.5px;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .btn-donate {
+      margin-top: auto;
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #dc2626;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-donate:hover {
+      background-color: #b91c1c;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">Nepal<span>Pulse</span></div>
+          <div class="brand-tagline">Connecting Needs with Kindness</div>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#" class="active">Browse Requests</a></li>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="#" class="btn-login">Login</a>
+          <a href="#" class="btn-register">Register</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <section class="page-header">
+      <h1>Browse Requests</h1>
+      <p>Find verified needs you can help with. Reserve only what you can give.</p>
+    </section>
+
+    <!-- Search Bar -->
+    <div class="search-wrapper">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search by keyword, item, or location..."
+        aria-label="Search by keyword, item, or location"
+      />
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="filter-pills" role="group" aria-label="Filter requests by category">
+      <button type="button" class="pill active">All</button>
+      <button type="button" class="pill">Blankets</button>
+      <button type="button" class="pill">Clothes</button>
+      <button type="button" class="pill">Food</button>
+      <button type="button" class="pill">Stationery</button>
+      <button type="button" class="pill">Hygiene</button>
+    </div>
+
+    <!-- Request Cards Grid -->
+    <section class="cards-grid" aria-label="Donation requests">
+
+      <!-- Card 1: Winter Blanket Drive -->
+      <article class="request-card">
+        <div class="card-visual bg-pink" aria-hidden="true">&#129509;</div>
+        <div class="card-body">
+          <span class="category-badge">Clothing</span>
+          <h2 class="card-title">Winter Blanket Drive</h2>
+          <div class="card-location">
+            <svg class="pin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Kathmandu</span>
+          </div>
+          <div class="card-quantity">40 &times; Winter blankets</div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 65%;"></div>
+          </div>
+          <div class="progress-stats">26 of 40 fulfilled &middot; 14 available</div>
+          <a href="request-details.html" class="btn-donate">Donate Items</a>
+        </div>
+      </article>
+
+      <!-- Card 2: School Stationery Sets -->
+      <article class="request-card">
+        <div class="card-visual bg-yellow" aria-hidden="true">&#128218;</div>
+        <div class="card-body">
+          <span class="category-badge">Education</span>
+          <h2 class="card-title">School Stationery Sets</h2>
+          <div class="card-location">
+            <svg class="pin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Lalitpur</span>
+          </div>
+          <div class="card-quantity">120 &times; Stationery sets</div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 40%;"></div>
+          </div>
+          <div class="progress-stats">48 of 120 fulfilled &middot; 72 available</div>
+          <a href="request-details.html" class="btn-donate">Donate Items</a>
+        </div>
+      </article>
+
+      <!-- Card 3: Rice & Lentils -->
+      <article class="request-card">
+        <div class="card-visual bg-mint" aria-hidden="true">&#127834;</div>
+        <div class="card-body">
+          <span class="category-badge">Food</span>
+          <h2 class="card-title">Rice &amp; Lentils</h2>
+          <div class="card-location">
+            <svg class="pin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Pokhara</span>
+          </div>
+          <div class="card-quantity">60 kg Rice &amp; lentils</div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 80%;"></div>
+          </div>
+          <div class="progress-stats">48 of 60 fulfilled &middot; 12 available</div>
+          <a href="request-details.html" class="btn-donate">Donate Items</a>
+        </div>
+      </article>
+
+      <!-- Card 4: Warm Clothes Collection -->
+      <article class="request-card">
+        <div class="card-visual bg-blue" aria-hidden="true">&#128085;</div>
+        <div class="card-body">
+          <span class="category-badge">Clothing</span>
+          <h2 class="card-title">Warm Clothes Collection</h2>
+          <div class="card-location">
+            <svg class="pin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Bhaktapur</span>
+          </div>
+          <div class="card-quantity">85 &times; Warm clothes</div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 24.7%;"></div>
+          </div>
+          <div class="progress-stats">21 of 85 fulfilled &middot; 64 available</div>
+          <a href="request-details.html" class="btn-donate">Donate Items</a>
+        </div>
+      </article>
+
+      <!-- Card 5: Hygiene Kits -->
+      <article class="request-card">
+        <div class="card-visual bg-pink" aria-hidden="true">&#129532;</div>
+        <div class="card-body">
+          <span class="category-badge">Hygiene</span>
+          <h2 class="card-title">Hygiene Kits</h2>
+          <div class="card-location">
+            <svg class="pin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Chitwan</span>
+          </div>
+          <div class="card-quantity">50 &times; Hygiene kits</div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 56%;"></div>
+          </div>
+          <div class="progress-stats">28 of 50 fulfilled &middot; 22 available</div>
+          <a href="request-details.html" class="btn-donate">Donate Items</a>
+        </div>
+      </article>
+
+      <!-- Card 6: Bedding Sets -->
+      <article class="request-card">
+        <div class="card-visual bg-yellow" aria-hidden="true">&#128719;&#65039;</div>
+        <div class="card-body">
+          <span class="category-badge">Household</span>
+          <h2 class="card-title">Bedding Sets</h2>
+          <div class="card-location">
+            <svg class="pin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Butwal</span>
+          </div>
+          <div class="card-quantity">30 &times; Bedding sets</div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: 10%;"></div>
+          </div>
+          <div class="progress-stats">3 of 30 fulfilled &middot; 27 available</div>
+          <a href="request-details.html" class="btn-donate">Donate Items</a>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+</body>
+</html>
