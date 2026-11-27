@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Donation Request — NepalPulse</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #ffffff;
+      color: #111827;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #ffffff;
+      border-bottom: 1px solid #f1f5f9;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background-color: #dc2626;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-name span {
+      color: #dc2626;
+    }
+
+    .brand-tagline {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 1px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #374151;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #dc2626;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-login {
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111827;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #f9fafb;
+      border-color: #d1d5db;
+    }
+
+    .btn-register {
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #dc2626;
+      border: 1px solid #dc2626;
+      border-radius: 9999px;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-register:hover {
+      background-color: #b91c1c;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 36px 24px 64px;
+    }
+
+    .page-header h1 {
+      font-size: 30px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header p {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    /* Stepper Pills */
+    .steps-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 22px;
+      margin-bottom: 28px;
+      position: relative;
+      max-width: 480px;
+    }
+
+    .steps-bar::before {
+      content: "";
+      position: absolute;
+      left: 40px;
+      right: 40px;
+      top: 50%;
+      height: 1px;
+      background-color: #e5e7eb;
+      z-index: 0;
+    }
+
+    .step-pill {
+      position: relative;
+      z-index: 1;
+      padding: 8px 26px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: 9999px;
+      background-color: #f3f4f6;
+      color: #374151;
+      white-space: nowrap;
+    }
+
+    .step-pill.active {
+      background-color: #0f172a;
+      color: #ffffff;
+    }
+
+    /* Form Grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 26px 28px;
+      box-shadow: 0 6px 20px rgba(17, 24, 39, 0.04);
+    }
+
+    .field-group {
+      margin-bottom: 18px;
+    }
+
+    .field-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .field-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 7px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="tel"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      color: #111827;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #9ca3af;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+    }
+
+    select {
+      color: #6b7280;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%236b7280'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 34px;
+    }
+
+    textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    /* Requested Items Card */
+    .card-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 16px;
+    }
+
+    .items-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .item-row {
+      display: grid;
+      grid-template-columns: 1fr 96px 116px 34px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-remove {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: none;
+      background-color: #fee2e2;
+      color: #dc2626;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-remove:hover {
+      background-color: #fecaca;
+    }
+
+    .btn-add-item {
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #dc2626;
+      background-color: #ffffff;
+      border: 1px solid #dc2626;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-add-item:hover {
+      background-color: #fef2f2;
+    }
+
+    /* Supporting Evidence Card */
+    .evidence-card h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .evidence-subtitle {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 3px;
+      margin-bottom: 16px;
+    }
+
+    .dropzone {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 34px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .dropzone:hover {
+      border-color: #cbd5e1;
+      background-color: #f1f5f9;
+    }
+
+    .dropzone-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .dropzone-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .dropzone-meta {
+      font-size: 11.5px;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+
+    .uploaded-files {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .file-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #dc2626;
+      background-color: #fee2e2;
+      border-radius: 9999px;
+    }
+
+    /* Bottom Action Bar */
+    .actions-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 32px;
+      gap: 20px;
+    }
+
+    .btn-cancel {
+      padding: 11px 38px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #111827;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-cancel:hover {
+      background-color: #f9fafb;
+    }
+
+    .submit-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 48px;
+    }
+
+    .btn-submit {
+      padding: 12px 44px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #dc2626;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #b91c1c;
+    }
+
+    .submit-note {
+      font-size: 11.5px;
+      color: #6b7280;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 920px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .submit-block {
+        margin-right: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .field-row-2 {
+        grid-template-columns: 1fr;
+      }
+      .item-row {
+        grid-template-columns: 1fr 70px 85px 30px;
+      }
+      .actions-footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">Nepal<span>Pulse</span></div>
+          <div class="brand-tagline">Connecting Needs with Kindness</div>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Browse Requests</a></li>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="#" class="btn-login">Login</a>
+          <a href="#" class="btn-register">Register</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <section class="page-header">
+      <h1>Create Donation Request</h1>
+      <p>Tell donors exactly what you need. An admin will verify before it goes live.</p>
+    </section>
+
+    <!-- Steps -->
+    <div class="steps-bar" aria-label="Request creation steps">
+      <div class="step-pill active">1 Details</div>
+      <div class="step-pill">2 Items</div>
+      <div class="step-pill">3 Evidence</div>
+    </div>
+
+    <form action="#" method="post">
+      <div class="form-grid">
+
+        <!-- Left Column -->
+        <div class="left-column">
+
+          <!-- Details Card -->
+          <section class="card" aria-label="Request details">
+            <div class="field-group">
+              <label for="request-title">Request title</label>
+              <input type="text" id="request-title" name="request_title" placeholder="e.g. Winter Blanket Drive" />
+            </div>
+
+            <div class="field-row-2">
+              <div>
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                  <option value="" selected disabled>Select category</option>
+                  <option value="clothing">Clothing</option>
+                  <option value="education">Education</option>
+                  <option value="food">Food</option>
+                  <option value="hygiene">Hygiene</option>
+                  <option value="household">Household</option>
+                </select>
+              </div>
+              <div>
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="e.g. Kathmandu" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" placeholder="Describe who the items are for and why they are needed..."></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="contact-phone">Contact phone (visible to matched donors only)</label>
+              <input type="tel" id="contact-phone" name="contact_phone" placeholder="98XXXXXXXX" />
+            </div>
+          </section>
+
+          <!-- Requested Items Card -->
+          <section class="card" aria-label="Requested items">
+            <h2 class="card-heading">Requested items</h2>
+            <div class="items-rows">
+              <div class="item-row">
+                <input type="text" value="Winter blankets" aria-label="Item name" />
+                <input type="number" value="40" aria-label="Quantity" />
+                <input type="text" value="pieces" aria-label="Unit" />
+                <button type="button" class="btn-remove" aria-label="Remove item">&times;</button>
+              </div>
+              <div class="item-row">
+                <input type="text" value="Baby blankets" aria-label="Item name" />
+                <input type="number" value="15" aria-label="Quantity" />
+                <input type="text" value="pieces" aria-label="Unit" />
+                <button type="button" class="btn-remove" aria-label="Remove item">&times;</button>
+              </div>
+            </div>
+            <button type="button" class="btn-add-item">+ Add another item</button>
+          </section>
+
+        </div>
+
+        <!-- Right Column: Supporting Evidence -->
+        <aside class="card evidence-card" aria-label="Supporting evidence">
+          <h2>Supporting evidence</h2>
+          <p class="evidence-subtitle">Helps admin verify your request. Never shown publicly.</p>
+
+          <label class="dropzone" for="evidence-upload">
+            <div class="dropzone-icon" aria-hidden="true">&#128193;</div>
+            <div class="dropzone-title">Drag &amp; drop files here</div>
+            <div class="dropzone-meta">or browse &middot; JPG, PNG, PDF up to 5MB</div>
+            <input type="file" id="evidence-upload" hidden />
+          </label>
+
+          <div class="uploaded-files">
+            <span class="file-pill">ward-letter.pdf &times;</span>
+          </div>
+        </aside>
+
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="actions-footer">
+        <button type="button" class="btn-cancel">Cancel</button>
+        <div class="submit-block">
+          <button type="submit" class="btn-submit">Submit for Review</button>
+          <p class="submit-note">Your request goes to an admin for verification before donors can see it.</p>
+        </div>
+      </div>
+    </form>
+  </main>
+
+</body>
+</html>
